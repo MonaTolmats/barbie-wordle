@@ -1,0 +1,188 @@
+@font-face {
+  font-family: "Condiment";
+  src: url("fonts/Condiment-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Barbie";
+  src: url("fonts/barbie.ttf") format("truetype");
+  font-display: swap;
+}
+
+:root {
+  --background: #fef9e5;
+  --tile: #ea6196;
+  --border: #1d1d1b;
+  --tile-text: #faf1db;
+  --revealed-text: #fef9e3;
+  --green: #77b780;
+  --yellow: #fbd62f;
+  --pink: #f98eb8;
+  --key: lightgrey;
+  --key-text: #1d1e19;
+  --end-text: #e75e94;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: var(--background);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.title {
+  font-family: "Barbie", "Condiment", cursive;
+  color: var(--tile);
+  font-size: clamp(2.2rem, 11vw, 3.4rem);
+  margin: 0;
+  letter-spacing: 0.02em;
+}
+
+.lang-toggle {
+  display: flex;
+  gap: 6px;
+}
+
+.lang {
+  font-family: "Condiment", cursive;
+  font-size: 1rem;
+  background: transparent;
+  color: var(--tile);
+  border: 2px solid var(--tile);
+  border-radius: 3px;
+  padding: 4px 14px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.lang:hover { background: rgba(234, 97, 150, 0.12); }
+
+.lang.active {
+  background: var(--tile);
+  color: var(--tile-text);
+}
+
+.lang:focus-visible { outline: 2px solid var(--border); outline-offset: 2px; }
+
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 5px;
+  width: 100%;
+  max-width: 470px;
+}
+
+.tile {
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--border);
+  background: var(--tile);
+  color: var(--tile-text);
+  font-family: "Condiment", cursive;
+  font-size: clamp(1.5rem, 7vw, 2.2rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  text-transform: uppercase;
+  transition: background-color 0.25s ease;
+}
+
+.tile.correct { background: var(--green);  color: var(--revealed-text); }
+.tile.present { background: var(--yellow); color: var(--revealed-text); }
+.tile.absent  { background: var(--pink);   color: var(--revealed-text); }
+
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  align-items: center;
+}
+
+.keyboard-row {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  width: 100%;
+}
+
+.key {
+  font-family: "Condiment", cursive;
+  font-size: clamp(0.7rem, 2.9vw, 1rem);
+  background: var(--key);
+  color: var(--key-text);
+  border: none;
+  border-radius: 3px;
+  height: 50px;
+  flex: 1 1 0;
+  min-width: 0;
+  cursor: pointer;
+  transition: background-color 0.25s ease;
+  padding: 0;
+}
+
+.key.wide {
+  flex: 2 1 0;
+}
+
+.key:hover { filter: brightness(0.95); }
+.key:active { transform: translateY(1px); }
+.key:focus-visible { outline: 2px solid var(--border); outline-offset: 2px; }
+
+.key.correct { background: var(--green); }
+.key.present { background: var(--yellow); }
+.key.absent  { background: var(--pink); }
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(29, 29, 27, 0.35);
+  padding: 20px;
+}
+
+.overlay[hidden] { display: none; }
+
+.end-button {
+  font-family: "Condiment", cursive;
+  font-size: clamp(1.1rem, 5vw, 1.55rem);
+  background: var(--revealed-text);
+  color: var(--end-text);
+  border: 2px solid var(--border);
+  padding: 14px 26px;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+.end-button:focus-visible { outline: 2px solid var(--end-text); outline-offset: 3px; }
+
+@media (max-width: 430px) {
+  .keyboard-row { gap: 3px; }
+  .keyboard { gap: 4px; }
+  .key { height: 44px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
